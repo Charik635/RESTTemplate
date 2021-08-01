@@ -3,6 +3,7 @@ package ru.masolv.rest.template.resttemplate.controllers;
 import org.springframework.http.*;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -19,7 +20,6 @@ public class RestController {
     public void getUsers() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
         HttpEntity<String> entity = new HttpEntity<>(headers);
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         ResponseEntity<String> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, entity, String.class);
@@ -32,6 +32,7 @@ public class RestController {
     public void saveUser(){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.COOKIE,cookie);
+
         HttpEntity<ru.masolv.rest.template.resttemplate.controllers.User> entity = new HttpEntity<>(user,httpHeaders);
     ResponseEntity<String> responseEntity = restTemplate.exchange(URL,HttpMethod.POST,entity,String.class);
    one = responseEntity.getBody();
